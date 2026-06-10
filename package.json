@@ -1,0 +1,48 @@
+{
+  "name": "caza-tesoro-cartesiano",
+  "version": "1.0.0",
+  "description": "Las Vacaciones Muy Planas de Gadget — plano cartesiano",
+  "main": "electron/main.cjs",
+  "private": true,
+  "scripts": {
+    "postinstall": "node scripts/copy-phaser.cjs",
+    "validate:missions": "node scripts/validate-missions.mjs",
+    "preview:phone": "npx --yes live-server --host=0.0.0.0 --port=8765 --no-browser --entry-file=index.html",
+    "start": "electron .",
+    "build": "electron-builder --win portable",
+    "build:dir": "electron-builder --win dir"
+  },
+  "devDependencies": {
+    "electron": "^35.0.0",
+    "electron-builder": "^25.1.8",
+    "phaser": "3.60.0"
+  },
+  "build": {
+    "appId": "com.cazatesoro.cartesiano",
+    "productName": "Caza Tesoro Cartesiano",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "index.html",
+      "src/**/*",
+      "mobile/**/*",
+      "assets/**/*",
+      "vendor/**/*",
+      "electron/**/*"
+    ],
+    "asar": true,
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "artifactName": "Caza-Tesoro-Cartesiano-${version}-Portable.exe"
+    }
+  }
+}

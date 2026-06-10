@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Las Vacaciones Muy Planas de Gadget</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="mobile/layout.css">
+  <style>
+    :root {
+      /* Misma familia que paintViewportGradient (más contraste que antes) */
+      --app-gradient: linear-gradient(
+        168deg,
+        #d4e8ea 0%,
+        #f0e6d8 30%,
+        #b8ddd6 58%,
+        #cbb08a 85%,
+        #b8986e 100%
+      );
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--app-gradient);
+      background-attachment: fixed;
+    }
+    body {
+      min-height: 100dvh;
+    }
+    /* Pantalla completa real: sin flex que centre el canvas y deje bandas del body visible (letterboxing). */
+    #phaser-game {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      min-width: 320px;
+      height: 100%;
+      min-height: 100dvh;
+      min-height: 100svh;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+    }
+    #phaser-game canvas {
+      display: block;
+      margin: 0;
+      vertical-align: top;
+      touch-action: none;
+    }
+    #boot-diagnostics { display: none; color: #7f1d1d; padding: 12px; font-family: system-ui, sans-serif; font-size: 14px; white-space: pre-wrap; background: rgba(255, 248, 240, 0.92); }
+    #boot-diagnostics.visible { display: block; }
+  </style>
+</head>
+
+<body>
+  <div id="phaser-game" aria-label="Las Vacaciones Muy Planas de Gadget — juego"></div>
+  <div id="boot-diagnostics" role="status"></div>
+
+  <script>
+    window.onerror = function (msg, src, line, col, err) {
+      console.error('ERROR GLOBAL:', msg, src, line, col, err);
+      var el = document.getElementById('boot-diagnostics');
+      if (el) {
+        el.classList.add('visible');
+        el.textContent += (msg || '') + '\n' + (src || '') + ':' + (line || '') + '\n';
+      }
+      return false;
+    };
+    window.addEventListener('unhandledrejection', function (e) {
+      console.error('PROMESA RECHAZADA:', e.reason);
+      var el = document.getElementById('boot-diagnostics');
+      if (el) {
+        el.classList.add('visible');
+        el.textContent += 'Promise: ' + (e.reason && e.reason.message ? e.reason.message : e.reason) + '\n';
+      }
+    });
+  </script>
+  <script src="vendor/phaser.min.js"
+    onerror="(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js';s.onerror=function(){var el=document.getElementById('boot-diagnostics');if(el){el.classList.add('visible');el.textContent='No se pudo cargar Phaser (local ni CDN).';}};document.head.appendChild(s);}())"></script>
+  <script type="module">
+    import('./src/game.js').catch(function (e) {
+      console.error('Fallo al cargar el módulo del juego (game.js o imports):', e);
+      var el = document.getElementById('boot-diagnostics');
+      if (el) {
+        el.classList.add('visible');
+        el.textContent += 'Módulo: ' + (e && e.message ? e.message : String(e)) + '\n';
+      }
+    });
+  </script>
+  <script src="mobile/touch-controls.js"></script>
+</body>
+</html>

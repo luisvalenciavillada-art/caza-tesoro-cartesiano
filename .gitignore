@@ -1,0 +1,8 @@
+# Dependencias y builds (se regeneran con npm install / npm run build)
+node_modules/
+dist/
+
+# Notas personales de trabajo
+textos.txt
+caza tesoro cartesiano.txt
+URL-CELULAR.txt
