@@ -1,0 +1,52 @@
+/* ...tu CSS anterior... */
+
+.flash {
+  background: #a7f3d0 !important;
+  transition: background 0.3s;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.hidden { display: none; }
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.progress-map {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+
+.zone {
+  padding: 6px 10px;
+  background: #e5e7eb;
+  border-radius: 8px;
+}
+
+.zone.unlocked {
+  background: #86efac;
+  font-weight: bold;
+}
+
+.collection-btn {
+  width: 100%;
+  padding: 10px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  border-radius: 8px;
+}
